@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./EmployeeReg.css";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios"; 
-import { toast } from "react-toastify"; 
+import axios from "axios";
+import { toast } from "react-toastify";
 
 class EmployeeReg extends Component {
   constructor(props) {
@@ -19,28 +19,69 @@ class EmployeeReg extends Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    // Check if the selected employee prop has changed
-    if (this.props.employee !== prevProps.employee) {
-      // Populate the form fields with the selected employee's data
-      const selectedEmployee = this.props.employee;
-      if (selectedEmployee) {
-        this.setState({
-          FirstName: selectedEmployee.firstname,
-          LastName: selectedEmployee.lastname,
-          DOB: selectedEmployee.dob,
-          Study: selectedEmployee.study,
-          StartDate: selectedEmployee.startdate,
-          EndDate: selectedEmployee.enddate,
-          Description: selectedEmployee.description,
-        });
-      }
+  componentDidMount() {
+    // Check if employee data is provided as a prop
+    if (this.props.selectedEmployee) {
+      this.update = true;
+      // Populate the form fields with the provided employee data
+      const {
+        FirstName,
+        LastName,
+        DOB,
+        Study,
+        StartDate,
+        EndDate,
+        Description,
+      } = this.props.selectedEmployee;
+
+      this.setState({
+        FirstName,
+        LastName,
+        DOB,
+        Study,
+        StartDate,
+        EndDate,
+        Description,
+      });
     }
   }
 
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  };
+
+  handleUpdate = () => {
+    const { FirstName, LastName, DOB, Study, StartDate, EndDate, Description } =
+      this.state;
+    const employeeId = this.props.selectedEmployee.id;
+
+    // Create an API request to update the employee data on the server
+    fetch(`https://sweede.app/DeliveryBoy/update-Employee/${employeeId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        FirstName,
+        LastName,
+        DOB,
+        Study,
+        StartDate,
+        EndDate,
+        Description,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the server, e.g., display a confirmation message
+        console.log("Employee updated:", data);
+
+        // You can also redirect to another page or perform additional actions here
+      })
+      .catch((error) => {
+        console.error("Error updating employee:", error);
+      });
   };
 
   handleSave = () => {
@@ -98,13 +139,14 @@ class EmployeeReg extends Component {
       Study: "Select a Study",
       StartDate: "",
       EndDate: "",
-      CurrentSalary:"",
+      CurrentSalary: "",
       Description: "",
     });
   };
 
   render() {
     const { Study } = this.state;
+    const { selectedEmployee } = this.props;
     return (
       <div>
         <h1>Employee Registration Form</h1>
@@ -143,8 +185,6 @@ class EmployeeReg extends Component {
               placeholder="Enter the DOB"
             />
           </div>
-
-
 
           <div className="form-group">
             <label htmlFor="Study">Study</label>
@@ -210,9 +250,15 @@ class EmployeeReg extends Component {
             <button type="button" onClick={this.handleCancel}>
               Cancel
             </button>
-            <button style={{backgroundColor:'#142A51',color:"white"}} type="button" onClick={this.handleSave}>
-              Save
-            </button>
+            {selectedEmployee ? (
+              <button style={{backgroundColor:'#142A51',color:"white"}}  type="button" onClick={this.handleUpdate}>
+                Update
+              </button>
+            ) : (
+              <button style={{backgroundColor:'#142A51',color:"white"}}  type="button" onClick={this.handleSave}>
+                Save
+              </button>
+            )}
           </div>
         </form>
       </div>

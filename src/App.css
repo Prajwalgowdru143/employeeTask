@@ -9,9 +9,20 @@ nav ul{
   align-items: center;
   justify-content: center;
   list-style-type: none;
+  text-decoration: none;
 }
 
 nav li{
+  width:15%;
+  text-decoration: none;
+  background-color: aqua;
   margin: 15px;
+  padding: 10px;
+  border: 2px solid blue;
+  border-radius: 10px;
 }
+nav li:hover{
+  cursor: pointer;
+}
+
 

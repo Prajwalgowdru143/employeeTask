@@ -138,7 +138,7 @@ class EmployeeList extends Component {
               <li onClick={() => this.handleView(this.state.activeEmployeeId)}>
                 View
               </li>
-              <li onClick={() => this.handleEdit(this.state.activeEmployeeId)}>
+              <li style={{textDecoration:"none"}} onClick={() => this.handleEdit(this.state.activeEmployeeId)}>
                 <Link to="/"  selectedEmployee={this.state.selectedEmployee} >
                 <FontAwesomeIcon icon={faEdit}/>
                   Edit</Link>
