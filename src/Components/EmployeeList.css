@@ -1,0 +1,96 @@
+/* EmployeeList.css */
+
+table {
+  overflow: hidden;
+  width: 100%;
+  border: 2px solid rgb(199, 195, 195);
+  border-radius: 13px;
+}
+
+/* Style for table headers */
+th {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
+/* Style for table cells */
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Add a bottom border to cells */
+}
+
+/* Style for the last row in the table */
+tr:last-child td {
+  border-bottom: none; /* Remove the bottom border for the last row */
+}
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+  
+  .dot:nth-child(1) {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .dot:nth-child(2) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .dot:nth-child(3) {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .description {
+    display: flex;
+    align-items: center; /* Center vertically */
+  }
+  
+  .three-dots-menu {
+    display: flex;
+    flex-direction: column; /* Display dots vertically */
+    cursor: pointer;
+    margin-left: 10px; /* Adjust the margin as needed */
+  }
+  
+  .dot {
+    width: 5px;
+    height: 5px;
+    background-color: #333;
+    border-radius: 50%;
+    margin: 2px 0; /* Add vertical spacing between dots */
+  }
+
+  /* Style for the context menu */
+.context-menu {
+  position: fixed; /* Use fixed positioning to overlay the content */
+  background-color: #fff; /* Background color */
+  border: 1px solid #ccc; /* Border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Box shadow for a slight elevation effect */
+  z-index: 1000; /* Ensure it appears above other elements */
+  top: 0; 
+  left: 0; 
+}
+
+.context-menu ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.context-menu li{
+    padding: 10px;
+    cursor: pointer;
+
+    /* Add hover effect for menu items */
+    &:hover {
+      background-color: #f0f0f0;
+    }
+}
