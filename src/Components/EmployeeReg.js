@@ -53,35 +53,35 @@ class EmployeeReg extends Component {
 
   handleUpdate = () => {
     const { FirstName, LastName, DOB, Study, StartDate, EndDate, Description } =
-      this.state;
-    const employeeId = this.props.selectedEmployee.id;
+    this.state;
+  const employeeId = this.props.selectedEmployee.id;
 
-    // Create an API request to update the employee data on the server
-    fetch(`https://sweede.app/DeliveryBoy/update-Employee/${employeeId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        FirstName,
-        LastName,
-        DOB,
-        Study,
-        StartDate,
-        EndDate,
-        Description,
-      }),
+  // Create an API request to update the employee data on the server using POST
+  fetch(`https://sweede.app/DeliveryBoy/update-Employee/${employeeId}`, {
+    method: "POST", // Use POST instead of PUT
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      FirstName,
+      LastName,
+      DOB,
+      Study,
+      StartDate,
+      EndDate,
+      Description,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the response from the server, e.g., display a confirmation message
+      console.log("Employee updated:", data);
+
+      // You can also redirect to another page or perform additional actions here
     })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server, e.g., display a confirmation message
-        console.log("Employee updated:", data);
-
-        // You can also redirect to another page or perform additional actions here
-      })
-      .catch((error) => {
-        console.error("Error updating employee:", error);
-      });
+    .catch((error) => {
+      console.error("Error updating employee:", error);
+    });
   };
 
   handleSave = () => {
